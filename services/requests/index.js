@@ -16,6 +16,11 @@ return paginate({ query: { user_id }, page, limit })
 }
 
 
+function deleteMockRequest({ user_id, request_id }){
+  
+}
+
+
 
 module.exports = {
   createNewRequests,

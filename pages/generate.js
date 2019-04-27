@@ -35,23 +35,31 @@ export default class Mocker extends React.Component {
      return Router.push("/users")
    }
 
-   return {}
+   const query = ctx.req.query
+
+   return {
+     ...query
+   }
   }
   
-  state = {
-    body: '{}',
-    endpoint: '',
-    method: 'get',
-    status: 200,
+constructor (props) {
+  super(props)
+  this.state = {
+    body:  props.body || '{}',
+    endpoint: props.endpoint || '',
+    method: props.method || 'get',
+    status: parseInt(props.method) || 200,
     output: `
   {
-   endpoint:  http://localhost:5000,
-   method: get,
-   statusCode: 200,
-    body: {}
+   endpoint:  https://localhost:5000/${props.endpoint},
+   method: ${props.method || "get"},
+   statusCode: ${props.status || "200"},
+    body: ${props.body || "{}"}
   }
   `,
   }
+}
+
 
   handleChange = async (newValue) => {
     await this.setState({ method: newValue })
@@ -103,13 +111,16 @@ export default class Mocker extends React.Component {
   render() {
     return (
       <AppProviderDynamic>
-        <Page fullWidth>
+        <Page fullWidth
+          breadcrumbs={[{content: 'All mock requests', url: '/requests'}]}
+
+        >
           <Row>
             <Col lg={12}>
               <Card
                 sectioned
                 title="Add new mock endpoint"
-                primaryFooterAction={{ content: 'Add request', 
+                primaryFooterAction={{ content: this.props.created_at ? "Update mock": "Add mock request", 
                 disabled: !this.state.body || !this.state.endpoint || !this.state.method || !this.state.status,
                 onAction: ()=> this.saveRequest()
               

@@ -7,8 +7,10 @@ import { parseCookies } from 'nookies'
 import Router from 'next/router'
 import { Page,Card } from "@shopify/polaris";
 
-import { Table,Button } from 'antd';
+import { Table,Button,Tooltip } from 'antd';
 import dynamic from 'next/dynamic'
+
+import queryString from "querystring"
 
 const AceEditor = dynamic(() => import('../components/aceEditor'), {
     ssr: false,
@@ -45,14 +47,19 @@ export  class Requests extends React.Component{
 
      makeRequest = async (data)=>{
         try {
-            console.log(data.method.toUpperCase())
             const token =  JSON.parse(parseCookies(null).__token)
            const value =await  fetch(`/${data.endpoint}?user_id=${token.user_id}`, {
                 method: data.method.toUpperCase()
-            }).then(res=> res.json())
-            console.log(value)
-        } catch (error) {
+            }).then(res=> res.text())
+       
+
+            const state = this.state.dataSet
+            const requestIndex = state.data.findIndex(value=> value._id === data._id)
+           state.data[requestIndex].response = value
             
+            this.setState({ ...state })
+        } catch (error) {
+            // console.log(error)
         }
     }
     
@@ -67,19 +74,18 @@ export  class Requests extends React.Component{
                 "X-MOCKERY-TOKEN": token.jwt
                }
             }).then(res=>res.json())
+            console.log(JSON.stringify(data))
             data.data.map(val=>{
                 val.response = "{}"
             })
             this.setState({ loading: false, dataSet: data})
         } catch (error) {
-            return console.log(error)
+            // return console.log(error)
         }
     }
 
 
-    render () {
-        console.log(this.state.dataSet);
-        
+    render () {        
         const columns = [
             {
                 title: 'Date created',
@@ -107,40 +113,72 @@ export  class Requests extends React.Component{
             dataIndex: 'body',
             key: 'body',
             render: (text)=>
-            <AceEditor 
+            <div style={{ width: 70 }}>
+        <AceEditor 
             disabled={true}
             lan="markdown"
             theme="github"
             value={text}
-            height="10vh"
+            height="40vh"
+            width={"150px"}
+            fontSize={12}
             />
+            </div>
           },
           {
             title: 'Test Request',
             dataIndex: 'response',
             key: 'response',
             render: (text, record)=>
-            <div>
+            <div style={{ width: 70 }}>
             <Button type="primary" style={{ marginTop: 10}} onClick={()=> this.makeRequest(record)}>Test</Button>
          <AceEditor 
             disabled={true}
             lan="markdown"
             theme="github"
             value={text}
-            height="20vh"
+            height="40vh"
+            width={"150px"}
+            fontSize={12}
             />
             </div>
-           
+          }, 
+          {
+            title: "Edit/Delete Request",
+            dataIndex: "_id",
+            key: "_id",
+            render: (text, record)=>
+            <>
+             <Tooltip placement="topLeft" title="Delete http mock">
+             <Button shape="circle" onClick={()=> this.deleteRequest(text)} icon="delete" />
+      </Tooltip>
+      <Tooltip placement="topLeft" title="Edit http mock">
+      <Button shape="circle" icon="edit" onClick={()=> this.editRequest(record)} style={ { marginLeft: 30 }} />
+      </Tooltip>
+            </>
+
           }
         ];
 
         return (
-            <Page fullWidth>
+            <Page fullWidth
+            breadcrumbs={[{content: 'Add mock requests', url: '/generate'}]}
+            >
                <Card sectioned>
                <Table columns={columns} dataSource={this.state.dataSet.data} loading={this.state.loading} />
                </Card>
             </Page>
         )
+    }
+
+
+    deleteRequest(id){
+console.log(id)
+    }
+
+    editRequest({ response, user_id, ...rest }){
+      const query = queryString.stringify(rest)
+      window.location.href = `/generate?${query}`
     }
 }
 

@@ -36,8 +36,7 @@ makeRequest = async ()=>{
         return (
             <Page
             singleColumn
-            title="Add payment method"
-            primaryAction={{content: 'Save', disabled: true}}
+            title="Authenticate"
           >
           <Form onSubmit={this.makeRequest}>
             <Card title="Authenticate or create new user" sectioned>

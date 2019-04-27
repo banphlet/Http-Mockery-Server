@@ -15,18 +15,17 @@ const textEditor = props => (
       theme={props.theme}
       onChange={props.onChange}
       value={props.value}
-      name="Request_Body"
       editorProps={{
         $blockScrolling: true,
       }}
-      fontSize={18}
+      fontSize={props.fontSize || 18}
       height={props.height || '40vh'}
-      // width="100%"
+      width={props.width || "100%"}
       setOptions={{
         enableBasicAutocompletion: false,
         enableLiveAutocompletion: false,
         enableSnippets: false,
-        showLineNumbers: true,
+        showLineNumbers:  true,
       }}
     />
   </div>
