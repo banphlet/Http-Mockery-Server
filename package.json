@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "heroku-postbuild": "next  build",
     "test": "mocha tests/setup.js   './{,!(node_modules|coverage|docs)/**/}*.test.js' --color --no-timeouts --exit",
     "dev": "NODE_ENV=developement node api",
     "build": "next build",

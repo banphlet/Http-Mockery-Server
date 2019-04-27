@@ -2,7 +2,8 @@
 
 if (process.env.NODE_ENV !== 'production') process.env.NODE_ENV = 'development'
 
-if (process.env.NODE_ENV === 'development') require('dotenv').config()
+// if (process.env.NODE_ENV === 'development') 
+require('dotenv').config()
 
 module.exports = variable => {
   const env = process.env[variable]
