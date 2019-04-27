@@ -2,7 +2,6 @@
 import 'antd/dist/antd.css'
 import '@shopify/polaris/styles.css'
 import 'isomorphic-unfetch'
-import { isEmpty } from 'lodash/fp'
 
 import dynamic from 'next/dynamic'
 const AppProviderDynamic = dynamic(() =>
@@ -81,13 +80,16 @@ export default class Mocker extends React.Component {
       ...rest
     }
 
+    const token =  JSON.parse(parseCookies(null).__token)
+
+
     try {
       await fetch("/requests", {
         method: "POST",
         body: JSON.stringify(rest),
         headers: {
           'Content-Type': 'application/json',
-          "X-MOCKERY-TOKEN": parseCookies(null).__token
+          "X-MOCKERY-TOKEN": token.jwt
          }
       }).then(res=> res.json())
       setTimeout(loader);
@@ -159,20 +161,10 @@ export default class Mocker extends React.Component {
             </Col>
 
             <Col lg={11} offset={1}>
-            <Card sectioned title="Try request"  actions={[ { content: "Try request" }]}>
+              <Card sectioned title="Render output">
                 <DynamicAceEditor
                   lan="markdown"
-                  height="30vh"
-                  disabled={true}
-                  value={this.state.output}
-                  theme="github"
-                />
-              </Card>
-
-              <Card sectioned title="Expected request format" >
-                <DynamicAceEditor
-                  lan="markdown"
-                  height="40vh"
+                  height="70vh"
                   disabled={true}
                   value={this.state.output}
                   theme="github"

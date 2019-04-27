@@ -4,7 +4,7 @@
  * @typedef {import Response ('express/lib/response')}
  * 
  */
-const { createNewRequests, findRequestAndRender } = require('../../services/requests')
+const { createNewRequests, findRequestAndRender, paginateRequests } = require('../../services/requests')
 const { createUser } = require('../../services/user')
 
 async function createRequest(req, res, next) {
@@ -26,7 +26,8 @@ async function createRequest(req, res, next) {
 async function handleDynamicRoutes(req, res, next){
 const endpoint =  req.baseUrl.slice(1)
 const method = req.method.toLowerCase()
-const data = await findRequestAndRender({ endpoint, method })
+if(!req.query.user_id) return res.json("user_id is required")
+const data = await findRequestAndRender({ endpoint, method, user_id: req.query.user_id })
 if(!data) return res.status(400).json({ error: {message: "route not found"} })
   res.status(data.status).send(data.body)
 }
@@ -38,8 +39,19 @@ return res.json({ data: response })
 }
 
 
+async function fetchAllrequests(req, res){
+try {
+  const userId = req.userId
+  const data = await paginateRequests({ user_id: userId, ...req.query })
+  res.json({ data })
+} catch (error) {
+  res.status(400).json(error.message)
+}
+}
+
 module.exports = {
   createRequest,
   handleDynamicRoutes,
-  creatNewUser
+  creatNewUser,
+  fetchAllrequests
 }

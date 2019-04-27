@@ -21,13 +21,12 @@ const textEditor = props => (
       }}
       fontSize={18}
       height={props.height || '40vh'}
-      width="100%"
+      // width="100%"
       setOptions={{
         enableBasicAutocompletion: false,
         enableLiveAutocompletion: false,
         enableSnippets: false,
         showLineNumbers: true,
-        tabSize: 2,
       }}
     />
   </div>

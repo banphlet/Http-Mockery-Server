@@ -26,6 +26,7 @@
     "isomorphic-unfetch": "3.0.0",
     "jsonwebtoken": "8.5.1",
     "mongoose": "5.5.4",
+    "mongoose-paginate-v2": "1.2.0",
     "morgan": "1.9.1",
     "next": "8.1.0",
     "next-compose-plugins": "2.1.1",
@@ -33,6 +34,7 @@
     "next-images": "1.1.1",
     "node-sass": "4.11.0",
     "nookies": "2.0.4",
+    "rate-limiter-flexible": "1.0.1",
     "react": "16.8.6",
     "react-ace": "6.5.0",
     "react-dom": "16.8.6"

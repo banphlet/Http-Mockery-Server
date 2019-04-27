@@ -24,8 +24,8 @@ makeRequest = async ()=>{
         }).then(res=> res.json())
         setTimeout(loader, 10);
         message.success("authenticated")
-        setCookie(null, "__token", user.data.jwt, { maxAge :  60 * 50})
-        Router.replace("/generate")
+        setCookie(null, "__token", JSON.stringify(user.data), { maxAge :  60 * 50})
+        Router.push("/generate")
     } catch (error) {
         setTimeout(loader, 10);
     }
