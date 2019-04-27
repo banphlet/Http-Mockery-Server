@@ -2,7 +2,6 @@
   "name": "mockery-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "mocha tests/setup.js   './{,!(node_modules|coverage|docs)/**/}*.test.js' --color --no-timeouts --exit",
     "dev": "NODE_ENV=developement node api",
@@ -10,11 +9,15 @@
     "start": "NODE_ENV=production node api",
     "prettier": "prettier --print-width 80 --no-semi --single-quote --trailing-comma es5 --write './{,!(node_modules|.next)/**}/*.js'"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "mock",
+    "react",
+    "nodejs",
+    "http-mockery"
+  ],
+  "author": "Nana Kwame Zoe<banphlet4@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@kudobuzz/logger": "0.0.1",
     "@shopify/polaris": "3.13.0",
     "@zeit/next-css": "1.0.1",
     "@zeit/next-sass": "1.0.1",
