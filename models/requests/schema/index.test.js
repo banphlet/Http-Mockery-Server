@@ -5,6 +5,18 @@ const schema = require('./index')
 describe('Schema Test', () => {
   const path = schema.paths
 
+  describe('shop_id', () => {
+    const user_id = path.user_id
+    it('should be required', () => {
+      return expect(user_id.isRequired).to.be.equal(true)
+    })
+
+    it('should be an Object id', () => {
+      return expect(user_id.instance).to.equal('ObjectID')
+    })
+
+  });
+
   describe('endpoint', () => {
     const endpoint = path.endpoint
     it('should be required', () => {
@@ -51,12 +63,12 @@ describe('Schema Test', () => {
 
   describe('status', () => {
     const status = path.status
-    it('should be required', () => {
-      return expect(status.isRequired).to.be.equal(true)
+    it('should have default value of 200', () => {
+      return expect(status.defaultValue).to.be.equal(200)
     })
 
     it('should be a number', () => {
-      return expect(status.instance).to.be.a('number')
+      return expect(status.instance).to.be.equal('Number')
     })
   })
 })

@@ -25,7 +25,7 @@ makeRequest = async ()=>{
         setTimeout(loader, 10);
         message.success("authenticated")
         setCookie(null, "__token", JSON.stringify(user.data), { maxAge :  60 * 50})
-        Router.push("/generate")
+        window.location.href = "/generate"
     } catch (error) {
         setTimeout(loader, 10);
     }
