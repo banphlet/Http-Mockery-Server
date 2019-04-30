@@ -1,14 +1,14 @@
-# Simple http mockey server build with nodejs and nextjs.
+## Simple http mockey server build with nodejs and nextjs.
 
 
-##  Start dev server 
+###  Start dev server 
 ```sh
 > npm run dev
 
 ```
 
 
-## Required envs
+### Required envs
 
 |   FIELD                   |          REQUIRED          |
 | ------------------------- | -------------------------  |
