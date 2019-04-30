@@ -29,7 +29,12 @@ const method = req.method.toLowerCase()
 if(!req.query.user_id) return res.json("user_id is required")
 const data = await findRequestAndRender({ endpoint, method, user_id: req.query.user_id })
 if(!data) return res.status(400).json({ error: {message: "route not found"} })
+try {
+  const response = JSON.parse(data.body)
+  res.status(data.status).json(response)
+} catch (error) {
   res.status(data.status).send(data.body)
+}
 }
 
 
