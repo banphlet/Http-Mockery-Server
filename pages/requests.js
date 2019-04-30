@@ -159,12 +159,21 @@ export  class Requests extends React.Component{
 
           }
         ];
+let userId
+        try {
+           userId =  JSON.parse(parseCookies(null).__token).user_id
+        } catch (error) {
+          // console.log(error)
+        }
 
         return (
             <Page fullWidth
             breadcrumbs={[{content: 'Add mock requests', url: '/generate'}]}
             >
-               <Card sectioned>
+               <Card sectioned
+                           title={userId && `Please pass user id to each request ${userId}`}
+
+               >
                <Table columns={columns} dataSource={this.state.dataSet.data} loading={this.state.loading} />
                </Card>
             </Page>
