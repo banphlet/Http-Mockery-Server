@@ -20,7 +20,7 @@ const middleWare = async (req, res, next)=>{
   }
 }
 
-// app.prepare().then(() => {
+app.prepare().then(() => {
   server
     .post('/requests', middleWare, createRequest)
     .get("/all-requests", middleWare, fetchAllrequests)
@@ -35,4 +35,4 @@ const middleWare = async (req, res, next)=>{
     .listen(config('PORT'), () => {
       console.log(`> Ready on http://localhost:${config('PORT')}`)
     })
-// })
+})
