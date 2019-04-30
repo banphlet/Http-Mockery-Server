@@ -19,4 +19,6 @@
 
 ### Preview
 
+sample app here https://httpmocker.herokuapp.com/users
+
 <img src="./preview.png" >
