@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "heroku-postbuild": "next  build",
-    "test": "mocha tests/setup.js   './{,!(node_modules|coverage|docs)/**/}*.test.js' --color --no-timeouts --exit",
+    "test": "mocha --require babel-core/register tests/setup.js   './{,!(node_modules|coverage|docs)/**/}*.test.js' --color --no-timeouts --exit",
     "dev": "NODE_ENV=developement node api",
     "build": "next build",
     "start": "NODE_ENV=production node api",
@@ -24,6 +24,7 @@
     "@zeit/next-sass": "1.0.1",
     "antd": "3.16.6",
     "body-parser": "1.19.0",
+    "cors": "2.8.5",
     "dotenv": "7.0.0",
     "ejs": "2.6.1",
     "express": "4.16.4",
@@ -44,11 +45,19 @@
     "react-dom": "16.8.6"
   },
   "devDependencies": {
+    "@babel/core": "7.4.4",
+    "@babel/preset-env": "7.4.4",
+    "@babel/register": "7.4.4",
+    "babel-core": "6.26.3",
+    "babel-preset-react": "6.24.1",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
+    "chai-enzyme": "1.0.0-beta.1",
+    "enzyme": "3.9.0",
     "faker": "4.1.0",
     "mocha": "6.1.4",
     "nock": "10.0.6",
-    "prettier": "1.17.0"
+    "prettier": "1.17.0",
+    "puppeteer": "1.15.0"
   }
 }

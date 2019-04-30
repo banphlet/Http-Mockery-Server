@@ -3,10 +3,12 @@
 const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require("body-parser")
+const cors = require("cors")
 const { connect, rateLimiterMongo } = require('../lib/database')
 const app = express()
 
 app.use(morgan('combined'))
+.use(cors())
 .use(bodyParser.json())
 .use(bodyParser.urlencoded({ extended: false }))
 .use((req, res, next) => {
