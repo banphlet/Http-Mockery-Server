@@ -1,6 +1,6 @@
 'use strict'
 const { expect } = require('chai')
-const { create, get } = require('./index')
+const { create, get, upsert } = require('./index')
 const { createRequest } = require('../../tests/features/request')
 
 describe('Requests Model', () => {
@@ -32,4 +32,13 @@ describe('Requests Model', () => {
       ).to.eventually.eql(data)
     })
   })
+
+
+  describe.only('upsert()', () => {
+    
+    it('should throw error if query is not passed', () => {
+      return expect(()=> upsert({})).to.throw("query is required")
+    });
+
+  });
 })

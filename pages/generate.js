@@ -51,7 +51,7 @@ constructor (props) {
     status: parseInt(props.method) || 200,
     output: `
   {
-   endpoint:  https://localhost:5000/${props.endpoint},
+   endpoint:  https://localhost:5000/${props.endpoint || ""},
    method: ${props.method || "get"},
    statusCode: ${props.status || "200"},
     body: ${props.body || "{}"}
@@ -130,7 +130,7 @@ constructor (props) {
                   label="Endpoint"
                   type="text"
                   value={this.state.endpoint}
-                  prefix="http://localhost:5000/"
+                  prefix={process.env.APP_URL}
                   onChange={async text => {
                     const hText = text
                       .split(' ')
