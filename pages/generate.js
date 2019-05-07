@@ -136,7 +136,7 @@ constructor (props) {
                   label="Endpoint"
                   type="text"
                   value={this.state.endpoint}
-                  prefix={process.env.APP_URL}
+                  prefix={`${process.env.APP_URL}/`}
                   onChange={async text => {
                     const hText = text
                       .split(' ')

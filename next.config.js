@@ -1,5 +1,5 @@
 'use strict'
-
+require("dotenv").config()
 const withPlugins = require('next-compose-plugins')
 const sass = require('@zeit/next-sass')
 const withCss = require('@zeit/next-css')
