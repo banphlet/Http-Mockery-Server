@@ -29,6 +29,5 @@ app.use('/_next', express.static('.next'))
 
 connect()
 .then(()=> console.log("Mongodb connected successfully"))
-// .set("view engine", "ejs")
 
 module.exports = app

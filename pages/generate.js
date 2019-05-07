@@ -82,7 +82,6 @@ constructor (props) {
 
   saveRequest = async ()=>{
     const { output, ...rest } = this.state
-    console.log(rest)
     const loader = message.loading("saving request")
     const body = {
       ...rest
@@ -102,6 +101,7 @@ constructor (props) {
       }).then(res=> res.json())
       setTimeout(loader);
       message.success("request saved successfully")
+      window.location.reload()
     } catch (error) {
       setTimeout(loader);
     }
@@ -109,11 +109,17 @@ constructor (props) {
   }
 
   render() {
+    let userId
+        try {
+           userId =  JSON.parse(parseCookies(null).__token).user_id
+        } catch (error) {
+          // console.log(error)
+        }
     return (
       <AppProviderDynamic>
         <Page fullWidth
           breadcrumbs={[{content: 'All mock requests', url: '/requests'}]}
-
+          title={userId && `Please pass user_id=${userId} to each request `}
         >
           <Row>
             <Col lg={12}>

@@ -48,7 +48,7 @@ makeRequest = async ()=>{
         autoFocus
       />
          <TextField
-        label="Store name"
+        label="User name"
         value={this.state.name}
         onChange={(text)=> this.setState({ name: text })}
       />
