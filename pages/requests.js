@@ -48,8 +48,12 @@ export  class Requests extends React.Component{
      makeRequest = async (data)=>{
         try {
             const token =  JSON.parse(parseCookies(null).__token)
-           const value =await  fetch(`/${data.endpoint}?user_id=${token.user_id}`, {
-                method: data.method.toUpperCase()
+           const value =await  fetch(`/${data.endpoint}`, {
+                method: data.method.toUpperCase(),
+                headers: {
+                  user_id: token.user_id,
+                  statuscode: data.status
+                }
             }).then(res=> res.text())
        
 
@@ -171,9 +175,10 @@ let userId
             breadcrumbs={[{content: 'Add mock requests', url: '/generate'}]}
             >
                <Card sectioned
-                           title={userId && `Please pass user id to each request ${userId}`}
-
                >
+               <p>
+          { userId && `Please pass user_id and statuscode as headers to each request.  user_id=${userId}  ` }
+           </p>
                <Table columns={columns} dataSource={this.state.dataSet.data} loading={this.state.loading} />
                </Card>
             </Page>

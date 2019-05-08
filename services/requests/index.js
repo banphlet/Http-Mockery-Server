@@ -7,8 +7,8 @@ function createNewRequests(data) {
   return upsert({ query: { user_id: data.user_id, endpoint: data.endpoint, method: data.method }, update:data })
 }
 
-function findRequestAndRender({ endpoint = required("endpoint"), method = required("method"), user_id =required("user_id") }){
- return get({ query: { endpoint, method, user_id } })
+function findRequestAndRender({ endpoint = required("endpoint"), method = required("method"), user_id =required("user_id"), status=required("status") }){
+ return get({ query: { endpoint, method, user_id, status } })
 }
 
 function  paginateRequests({ user_id, page, limit }){

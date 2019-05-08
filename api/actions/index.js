@@ -6,6 +6,7 @@
  */
 const { createNewRequests, findRequestAndRender, paginateRequests } = require('../../services/requests')
 const { createUser } = require('../../services/user')
+const { parseJson } = require("../../lib/utils")
 
 async function createRequest(req, res, next) {
   try {
@@ -26,14 +27,19 @@ async function createRequest(req, res, next) {
 async function handleDynamicRoutes(req, res, next){
 const endpoint =  req.baseUrl.slice(1)
 const method = req.method.toLowerCase()
-if(!req.query.user_id) return res.json("user_id is required")
-const data = await findRequestAndRender({ endpoint, method, user_id: req.query.user_id })
-if(!data) return res.status(400).json({ error: {message: "route not found"} })
+const headers = req.headers
+
+
+if(!headers["user_id"]) return res.status(400).json("user_id is required")
+if(!headers["statuscode"]) return res.status(400).json("statuscode is required in headers")
+
 try {
-  const response = JSON.parse(data.body)
+  const data = await findRequestAndRender({ endpoint, method, user_id: headers["user_id"], status: headers["statuscode"] })
+if(!data) return res.status(400).json({ error: {message: "route not found"} })
+  const response = parseJson(data.body)
   res.status(data.status).json(response)
 } catch (error) {
-  res.status(data.status).send(data.body)
+  res.status(400).send(error.message)
 }
 }
 

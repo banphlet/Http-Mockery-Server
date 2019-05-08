@@ -121,6 +121,9 @@ constructor (props) {
           breadcrumbs={[{content: 'All mock requests', url: '/requests'}]}
           title={userId && `Please pass user_id=${userId} to each request `}
         >
+        <p>
+          { userId && `Please pass user_id and statuscode as headers to each request.  user_id=${userId}  ` }
+           </p>
           <Row>
             <Col lg={12}>
               <Card
