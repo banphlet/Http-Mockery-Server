@@ -4,7 +4,7 @@ const { required } = require("../../lib/utils")
 const { upsert, get, paginate } = require('../../models/requests')
 
 function createNewRequests(data) {
-  return upsert({ query: { user_id: data.user_id, endpoint: data.endpoint, method: data.method }, update:data })
+  return upsert({ query: { user_id: data.user_id, endpoint: data.endpoint, method: data.method, status: data.status }, update:data })
 }
 
 function findRequestAndRender({ endpoint = required("endpoint"), method = required("method"), user_id =required("user_id"), status=required("status") }){
